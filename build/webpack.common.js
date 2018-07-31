@@ -11,23 +11,28 @@ module.exports = {
     app: './src/app.js'
   },
   plugins:[
+    // 构建前先删除build目录
     new CleanWebpackPlugin('dist', {
       root: path.resolve(__dirname, '../')
     }),
+    // pwa的workbox方案
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
       skipWaiting: true
     }),
+    // 使用时无需import
     new webpack.ProvidePlugin({
       _: 'lodash'
     }),
+    // webpack使用hash值得10位作为moduleid
     new webpack.HashedModuleIdsPlugin({
       hashFunction: 'sha256',
       hashDigest: 'hex',
       hashDigestLength: 10
     }),
+    // autoinject link script to index.html
     new HtmlWebpackPlugin({
-      title: '测试服务',
+      title: '测试',
       template: './src/index.html',
       inject: 'body',
       chunksSortMode: function(a, b) {
@@ -40,7 +45,6 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     filename: devMode ? '[name].[hash:8].js' : '[name].[chunkhash:8].js',
     chunkFilename: devMode ? '[name].[hash:8].js' : '[name].[chunkhash:8].js',
-    libraryTarget: "umd"
   },
   module: {
     rules
@@ -48,6 +52,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', 'tsx', '.jsx', '.scss', '.css']
   },
+  // webpack4中不再使用commonchunksplugin
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -61,7 +66,7 @@ module.exports = {
           test: /node_modules/,
           chunks: 'initial',
           name: 'vendor',
-          priority: 10, // 优先
+          priority: 10, // 优先级
           enforce: true
         }
       }

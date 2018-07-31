@@ -25,7 +25,7 @@ if ('serviceWorker' in navigator) {
 //   document.body.appendChild(component)
 // })
 
-function component() {
+async function component() {
   var element = document.createElement('div')
   var button = document.createElement('button')
   var br = document.createElement('br')
@@ -40,7 +40,11 @@ function component() {
   }
   return element
 }
-document.body.appendChild(component())
+
+component().then(component => {
+  document.body.appendChild(component)
+})
+// document.body.appendChild(component())
 
 if (module.hot) {
   module.hot.accept('./print.js', () => {
