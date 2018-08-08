@@ -32,7 +32,7 @@ module.exports = {
     }),
     // autoinject link script to index.html
     new HtmlWebpackPlugin({
-      title: '测试',
+      title: 'webpack config demo',
       template: './src/index.html',
       inject: 'body',
       chunksSortMode: function(a, b) {
@@ -43,8 +43,8 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: devMode ? '[name].[hash:8].js' : '[name].[chunkhash:8].js',
-    chunkFilename: devMode ? '[name].[hash:8].js' : '[name].[chunkhash:8].js',
+    filename: devMode ? '[name].js' : '[name].[chunkhash:8].js',
+    chunkFilename: devMode ? '[name].js' : '[name].[chunkhash:8].js',
   },
   module: {
     rules

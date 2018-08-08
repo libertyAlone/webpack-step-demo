@@ -12,6 +12,7 @@
       },
       "syntax-async-generators"
     ],
+    "dynamic-import-node",
     "transform-decorators-legacy"
   ]
 }
