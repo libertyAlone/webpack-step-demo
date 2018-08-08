@@ -11,15 +11,16 @@ const smp = new SpeedMeasurePlugin()
 module.exports = smp.wrap(merge(common, {
   mode: 'production',
   optimization: {
-    minimizer: [new OptimizeCSSAssetsPlugin({})]
+    minimizer: [
+      new UglifyJSPlugin({
+        sourceMap: true,
+        cache: true,
+        parallel: true
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
   },
   plugins: common.plugins.concat([
-    new UglifyJSPlugin({
-      sourceMap: true,
-      cache: true,
-      parallel: true
-    }),
-    // new OptimizeCSSAssetsPlugin({}),
     // 不再使用extracttextplugin
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[contenthash:8].css',
